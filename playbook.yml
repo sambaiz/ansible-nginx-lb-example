@@ -5,9 +5,6 @@
   roles:
   - role: nginxinc.nginx
     vars:
-      nginx_html_upload_enable: true
-      nginx_html_upload_src: www/*
-      nginx_html_upload_dest: /usr/share/nginx/html
       nginx_main_upload_enable: true
       nginx_main_upload_src: conf/lb/nginx.conf
       nginx_main_upload_dest: /etc/nginx/
