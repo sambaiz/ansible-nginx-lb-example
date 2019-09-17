@@ -1,0 +1,43 @@
+---
+- hosts: lb
+  become: yes
+  become_user: root
+  roles:
+  - role: nginxinc.nginx
+    vars:
+      nginx_html_upload_enable: true
+      nginx_html_upload_src: www/*
+      nginx_html_upload_dest: /usr/share/nginx/html
+      nginx_main_upload_enable: true
+      nginx_main_upload_src: conf/lb/nginx.conf
+      nginx_main_upload_dest: /etc/nginx/
+- hosts: app
+  become: yes
+  become_user: root
+  roles:
+  - role: nginxinc.nginx
+    vars:
+      nginx_main_upload_enable: true
+      nginx_main_upload_src: conf/app/nginx.conf
+      nginx_main_upload_dest: /etc/nginx/
+  tasks:
+  - name: Copy app
+    copy:
+      src: main
+      dest: /root/app
+      owner: root
+      group: root
+      mode: '700'
+  - name: Copy service file
+    copy:
+      src: conf/app/myapp.service
+      dest: /lib/systemd/system/myapp.service
+      owner: root
+      group: root
+      mode: '644'
+  - name: restart myapp.service
+    systemd:
+      name: myapp.service
+      state: restarted
+      daemon_reload: yes
+      enabled: yes

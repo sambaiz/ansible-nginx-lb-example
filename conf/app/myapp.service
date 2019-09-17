@@ -1,0 +1,11 @@
+[Unit]
+Description=My app service
+
+[Service]
+ExecStart=/root/app
+KillMode=process
+Restart=on-failure
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
