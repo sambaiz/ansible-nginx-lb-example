@@ -1,6 +1,6 @@
 ## ansible-nginx-lb-example
 
-[Ansibleでnginxを入れてLoad Balancingする - sambaiz-net](https://www.sambaiz.net/article/239/)
+[Ansibleでnginxを入れてLoad Balancingさせる - sambaiz-net](https://www.sambaiz.net/article/239/)
 
 ```
 $ vi conf/app/nginx.conf
